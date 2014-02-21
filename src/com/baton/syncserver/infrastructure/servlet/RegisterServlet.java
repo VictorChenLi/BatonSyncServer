@@ -13,11 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gcm.demo.server;
+package com.baton.syncserver.infrastructure.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.baton.syncserver.infrastructure.database.Datastore;
+import com.baton.syncserver.infrastructure.exception.ServiceException;
+import com.baton.syncserver.usermanage.service.UserManageServices;
+import com.baton.syncserver.usermanage.service.UserManageServicesImpl;
 
 /**
  * Servlet that registers a device, whose registration id is identified by
@@ -30,14 +35,30 @@ import javax.servlet.http.HttpServletResponse;
  */
 @SuppressWarnings("serial")
 public class RegisterServlet extends BaseServlet {
-
-  private static final String PARAMETER_REG_ID = "regId";
+	
+	private UserManageServices userManageService=new UserManageServicesImpl();
+	
+  private static final String GCM_REGID = "gcm_regid";
+  private static final String NICK_NAME = "nick_name";
+  private static final String EMAIL = "email";
+  private static final String PASSWORD = "password";
+  private static final String FIRST_NAME = "f_name";
+  private static final String LAST_NAME = "l_name";
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException {
-    String regId = getParameter(req, PARAMETER_REG_ID);
-    Datastore.register(regId);
+    String gcm_regid = getParameter(req, GCM_REGID);
+    String nick_name = getParameter(req, NICK_NAME);
+    String email = getParameter(req, EMAIL);
+    String password = getParameter(req, PASSWORD);
+    String f_name = getParameter(req, FIRST_NAME);
+    String l_name = getParameter(req, LAST_NAME);
+    try {
+		userManageService.UserRegister(gcm_regid, nick_name, email, password, f_name, l_name);
+	} catch (ServiceException e) {
+		this.setException(resp, e);
+	} 
     setSuccess(resp);
   }
 

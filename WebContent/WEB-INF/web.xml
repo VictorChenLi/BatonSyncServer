@@ -22,14 +22,14 @@
 
   <listener>
     <listener-class>
-      com.google.android.gcm.demo.server.ApiKeyInitializer
+      com.baton.syncserver.infrastructure.servlet.ApiKeyInitializer
     </listener-class>
   </listener>
   
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>
-      com.google.android.gcm.demo.server.RegisterServlet
+      com.baton.syncserver.infrastructure.servlet.RegisterServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -42,7 +42,7 @@
   <servlet>
     <servlet-name>UnregisterServlet</servlet-name>
     <servlet-class>
-      com.google.android.gcm.demo.server.UnregisterServlet
+      com.baton.syncserver.infrastructure.servlet.UnregisterServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -55,7 +55,7 @@
   <servlet>
     <servlet-name>SendAllMessagesServlet</servlet-name>
     <servlet-class>
-      com.google.android.gcm.demo.server.SendAllMessagesServlet
+      com.baton.syncserver.infrastructure.servlet.SendAllMessagesServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -68,7 +68,7 @@
   <servlet>
     <servlet-name>HomeServlet</servlet-name>
     <servlet-class>
-      com.google.android.gcm.demo.server.HomeServlet
+      com.baton.syncserver.infrastructure.servlet.HomeServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>

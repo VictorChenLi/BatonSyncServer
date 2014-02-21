@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gcm.demo.server;
+package com.baton.syncserver.infrastructure.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+
+import com.baton.syncserver.infrastructure.utility.ConfigHelper;
 
 /**
  * Context initializer that loads the API key from a
@@ -43,6 +45,7 @@ public class ApiKeyInitializer implements ServletContextListener {
         "WEB-INF/classes");
     String key = getKey();
     event.getServletContext().setAttribute(ATTRIBUTE_ACCESS_KEY, key);
+    ConfigHelper.loadConfig();
   }
 
   /**

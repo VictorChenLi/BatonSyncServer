@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gcm.demo.server;
+package com.baton.syncserver.infrastructure.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.baton.syncserver.infrastructure.database.Datastore;
 
 /**
  * Servlet that unregisters a device, whose registration id is identified by

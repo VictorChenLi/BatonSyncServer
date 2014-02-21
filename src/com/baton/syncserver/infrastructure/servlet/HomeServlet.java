@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gcm.demo.server;
+package com.baton.syncserver.infrastructure.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,6 +21,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.baton.syncserver.infrastructure.database.Datastore;
 
 /**
  * Servlet that adds display number of devices and button to send a message.
@@ -51,7 +53,7 @@ public class HomeServlet extends BaseServlet {
     if (status != null) {
       out.print(status);
     }
-    Datastore.register("APA91bEyAvOdL6CAxiomTsbrIEQJqqctQ69lE3tizrkKmZolk8EC8kHtiLztw_SQcgdzds5GFKaBVKA-5x94u2nzN2gGQSEgKvrbDoZexlDakiOlWnZPPAnblBBlkZoYzcy-N5Pj3S7d7brHm9E8c3dE4tDAPCVOSPyItGrWfUt7suqPHWjK7oA");
+    //Datastore.register("APA91bEyAvOdL6CAxiomTsbrIEQJqqctQ69lE3tizrkKmZolk8EC8kHtiLztw_SQcgdzds5GFKaBVKA-5x94u2nzN2gGQSEgKvrbDoZexlDakiOlWnZPPAnblBBlkZoYzcy-N5Pj3S7d7brHm9E8c3dE4tDAPCVOSPyItGrWfUt7suqPHWjK7oA");
     List<String> devices = Datastore.getDevices();
     if (devices.isEmpty()) {
       out.print("<h2>No devices registered!</h2>");
