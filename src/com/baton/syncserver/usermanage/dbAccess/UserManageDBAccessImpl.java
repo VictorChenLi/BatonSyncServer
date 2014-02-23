@@ -34,7 +34,7 @@ public class UserManageDBAccessImpl implements UserManageDBAccess {
 		List<UserProfile> userList = new ArrayList<UserProfile>();
 		strSql+=strWhere;
 		DTable results = BaseDBAccess.getSQLResult(strSql);
-		if(null==results)
+		if(null==results||0==results.getRowLength())
 			return null;
 		for(int i =0;i<results.getRowLength();i++)
 		{
@@ -48,6 +48,13 @@ public class UserManageDBAccessImpl implements UserManageDBAccess {
 	@Override
 	public boolean insertUserProfile(UserProfile user) {
 		return BaseDBAccess.runSQL(UserManageDBAccess.INSERTSQL, user.getUserData());
+	}
+
+	@Override
+	public boolean updateUserProfile(UserProfile user) {
+		List<String> varList = user.getUserData();
+		varList.add(String.valueOf(user.getUid()));
+		return BaseDBAccess.runSQL(UserManageDBAccess.UPDATESQL,varList);
 	}
 	
 }

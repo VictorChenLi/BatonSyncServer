@@ -139,11 +139,12 @@ public class BaseDBAccess
         for(int i=0; i< field.length; i++)
         {
         	sb.append(field[i]);
-        	sb.append("=");
+        	sb.append("='");
         	sb.append(values[i]);
+        	sb.append("'");
         	if (i < values.length - 1)
             {
-                sb.append("and");
+                sb.append(" and ");
             }
         }
         return sb.toString();
@@ -310,7 +311,7 @@ public class BaseDBAccess
             while (rs.next())
             {
                 row = new HashMap<String,Object>();
-                for (int i = 0; i < colNum; i++)
+                for (int i = 1; i <= colNum; i++)
                 {
                 	String colName = metaData.getColumnLabel(i);
                 	row.put(colName, rs.getObject(i));

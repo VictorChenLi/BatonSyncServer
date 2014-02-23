@@ -16,6 +16,8 @@ public class ErrorCode {
 	public static final String GCMID_Not_Exist = "010003";
 	public static final String GCMID_Not_Exist_Msg = "The GCMID is not exist on GCM";
 	
+	public static final String Email_Not_Exist = "010004";
+	public static final String Email_Not_Exist_Msg = "The email address not exist";
 	
 	// 09**** database access module error
 	public static final String DB_Common_Error = "090001";

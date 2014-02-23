@@ -40,16 +40,16 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>UnregisterServlet</servlet-name>
+    <servlet-name>LoginServlet</servlet-name>
     <servlet-class>
-      com.baton.syncserver.infrastructure.servlet.UnregisterServlet
+      com.baton.syncserver.infrastructure.servlet.LoginServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>UnregisterServlet</servlet-name>
-    <url-pattern>/unregister</url-pattern>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
   <servlet>

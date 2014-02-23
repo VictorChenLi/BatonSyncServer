@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.baton.syncserver.infrastructure.database.Datastore;
+import com.baton.syncserver.infrastructure.exception.ServiceException;
+import com.baton.syncserver.usermanage.service.UserManageServices;
+import com.baton.syncserver.usermanage.service.UserManageServicesImpl;
 
 /**
  * Servlet that unregisters a device, whose registration id is identified by
@@ -30,16 +33,26 @@ import com.baton.syncserver.infrastructure.database.Datastore;
  * {@code unregistered} extra.
  */
 @SuppressWarnings("serial")
-public class UnregisterServlet extends BaseServlet {
+public class LoginServlet extends BaseServlet {
 
-  private static final String PARAMETER_REG_ID = "regId";
+	private UserManageServices userManageService = new UserManageServicesImpl();
 
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException {
-    String regId = getParameter(req, PARAMETER_REG_ID);
-    Datastore.unregister(regId);
-    setSuccess(resp);
-  }
+	private static final String GCM_REGID = "gcm_regid";
+	private static final String EMAIL = "email";
+	private static final String PASSWORD = "password";
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException {
+		String gcm_regid = getParameter(req, GCM_REGID);
+		String email = getParameter(req, EMAIL);
+		String password = getParameter(req, PASSWORD);
+		try {
+			userManageService.UserLogin(gcm_regid, email, password);
+		} catch (ServiceException e) {
+			this.setException(resp, e);
+		}
+		setSuccess(resp);
+	}
 
 }

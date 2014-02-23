@@ -89,6 +89,14 @@ public class ServiceException extends Exception
         this.statusCode = HttpServletResponse.SC_BAD_REQUEST;
     }
     
+    public ServiceException()
+    {
+        super("");
+        this.errorCode = "0";
+        this.errorType = "OTHER";
+        this.statusCode = HttpServletResponse.SC_BAD_REQUEST;
+    }
+    
 
     /**
      * 
@@ -108,7 +116,11 @@ public class ServiceException extends Exception
     
     public String toJson()
     {
-    	return JsonHelper.serializeWithClass(this);
+    	ServiceException output = new ServiceException();
+    	output.setErrorCode(this.getErrorCode());
+    	output.setErrorType(this.getErrorType());
+    	output.setStatusCode(this.getStatusCode());
+    	return JsonHelper.serialize(output);
     }
 
     public String getErrorCode()

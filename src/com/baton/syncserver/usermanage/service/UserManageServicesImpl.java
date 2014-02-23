@@ -23,9 +23,18 @@ public class UserManageServicesImpl implements UserManageServices {
 	}
 
 	@Override
-	public boolean UserLogin(String gcm_regid, String email, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean UserLogin(String gcm_regid, String email, String password) throws ServiceException {
+		UserProfile user = userManageDBImpl.queryUserProfile(email);
+		if(null == user)
+			throw new ServiceException(ErrorCode.Email_Not_Exist_Msg,ErrorCode.Email_Not_Exist_Msg);
+		if(!user.getPassword().equals(password))
+			throw new ServiceException(ErrorCode.Password_Error_Msg,ErrorCode.Password_Error);
+		if(!user.getGcm_regid().equals(gcm_regid))
+		{
+			user.setGcm_regid(gcm_regid);
+			userManageDBImpl.updateUserProfile(user);
+		}
+		return true;
 	}
 
 }
