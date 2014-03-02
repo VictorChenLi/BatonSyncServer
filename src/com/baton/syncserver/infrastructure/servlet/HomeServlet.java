@@ -22,6 +22,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baton.syncserver.usermanage.dbAccess.UserManageDBAccess;
+import com.baton.syncserver.usermanage.dbAccess.UserManageDBAccessImpl;
+import com.baton.syncserver.usermanage.model.UserProfile;
 import com.baton.syncserver.infrastructure.database.Datastore;
 
 /**
@@ -35,6 +38,7 @@ public class HomeServlet extends BaseServlet {
 
   static final String ATTRIBUTE_STATUS = "status";
 
+  private UserManageDBAccess userDBAccess = new UserManageDBAccessImpl();
   /**
    * Displays the existing messages and offer the option to send a new one.
    */
@@ -54,8 +58,8 @@ public class HomeServlet extends BaseServlet {
       out.print(status);
     }
     //Datastore.register("APA91bEyAvOdL6CAxiomTsbrIEQJqqctQ69lE3tizrkKmZolk8EC8kHtiLztw_SQcgdzds5GFKaBVKA-5x94u2nzN2gGQSEgKvrbDoZexlDakiOlWnZPPAnblBBlkZoYzcy-N5Pj3S7d7brHm9E8c3dE4tDAPCVOSPyItGrWfUt7suqPHWjK7oA");
-    List<String> devices = Datastore.getDevices();
-    if (devices.isEmpty()) {
+    List<UserProfile> devices = userDBAccess.queryUserProfileList();
+    if (null==devices||devices.isEmpty()) {
       out.print("<h2>No devices registered!</h2>");
     } else {
       out.print("<h2>" + devices.size() + " device(s) registered!</h2>");

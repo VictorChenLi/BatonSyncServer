@@ -5,6 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 public class UserProfile {
+	public static final String GCMID_WEB_STR = "gcm_regid";
+	public static final String NICKNAME_WEB_STR = "nick_name";
+	public static final String EMAIL_WEB_STR = "email";
+	public static final String PASSWORD_WEB_STR = "password";
+	public static final String FNAME_WEB_STR = "f_name";
+	public static final String USERTYPE_WEB_STR = "user_type";
+	public static final String CREATEAT_WEB_STR = "created_at";
+	
 	private int uid;
 	private String gcm_regid;
 	private String nick_name;
@@ -12,6 +20,7 @@ public class UserProfile {
 	private String password;
 	private String f_name;
 	private String l_name;
+	private String user_type;
 	private String created_at;
 	
 	public int getUid() {
@@ -56,6 +65,12 @@ public class UserProfile {
 	public void setL_name(String l_name) {
 		this.l_name = l_name;
 	}
+	public String getUser_type() {
+		return user_type;
+	}
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
+	}
 	public String getCreated_at() {
 		return created_at;
 	}
@@ -64,16 +79,15 @@ public class UserProfile {
 	}
 	
 	public UserProfile(String gcm_regid, String nick_name,
-			String email, String password, String f_name, String l_name) {
+			String email, String password, String f_name, String l_name, String user_type) {
 		super();
-		this.uid = uid;
 		this.gcm_regid = gcm_regid;
 		this.nick_name = nick_name;
 		this.email = email;
 		this.password = password;
 		this.f_name = f_name;
 		this.l_name = l_name;
-		this.created_at=created_at;
+		this.user_type=user_type;
 	}
 	
 	public UserProfile(Map<String, Object> data)
@@ -86,6 +100,7 @@ public class UserProfile {
 		this.password = data.get("password").toString();
 		this.f_name = data.get("f_name").toString();
 		this.l_name = data.get("l_name").toString();
+		this.user_type=data.get("user_type").toString();
 		this.created_at = data.get("created_at").toString();
 	}
 	
@@ -98,6 +113,7 @@ public class UserProfile {
 		userData.add(this.password);
 		userData.add(this.f_name);
 		userData.add(this.l_name);
+		userData.add(this.user_type);
 		return userData;
 	}
 

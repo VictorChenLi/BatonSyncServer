@@ -44,6 +44,7 @@ public class RegisterServlet extends BaseServlet {
   private static final String PASSWORD = "password";
   private static final String FIRST_NAME = "f_name";
   private static final String LAST_NAME = "l_name";
+  private static final String USER_TYPE = "user_type";
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -54,8 +55,10 @@ public class RegisterServlet extends BaseServlet {
     String password = getParameter(req, PASSWORD);
     String f_name = getParameter(req, FIRST_NAME);
     String l_name = getParameter(req, LAST_NAME);
+    String user_type = getParameter(req,USER_TYPE);
+//    String user_type = "Student";
     try {
-		userManageService.UserRegister(gcm_regid, nick_name, email, password, f_name, l_name);
+		userManageService.UserRegister(gcm_regid, nick_name, email, password, f_name, l_name,user_type);
 	} catch (ServiceException e) {
 		this.setException(resp, e);
 	} 

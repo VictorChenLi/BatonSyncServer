@@ -12,10 +12,10 @@ public class UserManageServicesImpl implements UserManageServices {
 	
 	@Override
 	public boolean UserRegister(String gcm_regid, String nick_name,
-			String email, String password, String f_name, String l_name) throws ServiceException {
+			String email, String password, String f_name, String l_name, String user_type) throws ServiceException {
 		if(null!=userManageDBImpl.queryUserProfile(email))
 			throw new ServiceException(ErrorCode.Email_Occupied_Msg,ErrorCode.Email_Occupied);
-		UserProfile user = new UserProfile(gcm_regid,nick_name,email,password,f_name,l_name);
+		UserProfile user = new UserProfile(gcm_regid,nick_name,email,password,f_name,l_name,user_type);
 		if(false == userManageDBImpl.insertUserProfile(user))
 			throw new ServiceException(ErrorCode.DB_Common_Error,ErrorCode.DB_Common_Error_Msg);
 		return true;

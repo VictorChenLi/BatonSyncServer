@@ -64,6 +64,19 @@
     <servlet-name>SendAllMessagesServlet</servlet-name>
     <url-pattern>/sendAll</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SendTicketServlet</servlet-name>
+    <servlet-class>
+      com.baton.syncserver.infrastructure.servlet.SendTicketServlet
+    </servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SendTicketServlet</servlet-name>
+    <url-pattern>/sendTicket</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>HomeServlet</servlet-name>

@@ -23,6 +23,12 @@ public class UserManageDBAccessImpl implements UserManageDBAccess {
 		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
 	}
 	
+	public UserProfile queryUserProfileByGCM(String gcm_regid)
+	{
+		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{"gcm_regid"},new String[]{gcm_regid});
+		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
+	}
+	
 	@Override
 	public List<UserProfile> queryUserProfileList()
 	{

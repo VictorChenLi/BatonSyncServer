@@ -8,10 +8,10 @@ public interface UserManageDBAccess {
 
 	public static final String SELECTSQL = "select * from user_profile ";
 
-	public static final String INSERTSQL = "insert into user_profile(gcm_regid, nick_name, email, password,f_name,l_name,created_at) "
-			+ "VALUES (?,?,?,?,?,?,DEFAULT)";
+	public static final String INSERTSQL = "insert into user_profile(gcm_regid, nick_name, email, password,f_name,l_name,user_type,created_at) "
+			+ "VALUES (?,?,?,?,?,?,?,DEFAULT)";
 	
-	public static final String UPDATESQL = "update user_profile set gcm_regid=?, nick_name=?, email=?, password=?, f_name=?, l_name=? where uid=?";
+	public static final String UPDATESQL = "update user_profile set gcm_regid=?, nick_name=?, email=?, password=?, f_name=?, l_name=?,user_type=?? where uid=?";
 
 	public UserProfile queryUserProfile(int id);
 
@@ -22,4 +22,6 @@ public interface UserManageDBAccess {
 	public boolean insertUserProfile(UserProfile user);
 	
 	public boolean updateUserProfile(UserProfile user);
+	
+	public UserProfile queryUserProfileByGCM(String gcm_regid);
 }
