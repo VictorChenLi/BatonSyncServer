@@ -21,11 +21,12 @@ public class SendTicketServlet extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		String gcm_regid = getParameter(req, UserProfile.GCMID_WEB_STR);
+		String email = getParameter(req,UserProfile.EMAIL_WEB_STR);
 		String ticketType = getParameter(req, Ticket.TICKETTYPE_WEB_STR);
 		String ticketContent = getParameter(req, Ticket.TICKETCONTENT_WEB_STR);
 		String timeStamp = getParameter(req, Ticket.TIMESTAMP_WEB_STR);
 		
-		ticketManageService.SendTicket(getServletConfig(), gcm_regid, ticketType, ticketContent, timeStamp);
+		ticketManageService.SendTicket(getServletConfig(), email, gcm_regid, ticketType, ticketContent, timeStamp);
 		setSuccess(resp);
 	}
 }

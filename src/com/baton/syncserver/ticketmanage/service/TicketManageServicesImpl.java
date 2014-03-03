@@ -20,9 +20,9 @@ public class TicketManageServicesImpl implements TicketManageServices {
 	private TicketManageDBAccess ticketManageDBImpl = new TicketManageDBAccessImpl();
 	
 	@Override
-	public Boolean SendTicket(ServletConfig config, String gcm_regid, String ticketType,
+	public Boolean SendTicket(ServletConfig config, String email, String gcm_regid, String ticketType,
 			String ticketContent, String timeStamp) {
-		UserProfile user = userManageDBImpl.queryUserProfileByGCM(gcm_regid);
+		UserProfile user = userManageDBImpl.queryUserProfile(email);
 		Ticket ticket = new Ticket(user.getUid(),ticketType,ticketContent,timeStamp);
 		ticketManageDBImpl.insertTicket(ticket);
 		GCMHelper gcmHelper = new GCMHelper(config);
