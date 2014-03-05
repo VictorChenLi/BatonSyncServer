@@ -11,7 +11,7 @@ public interface UserManageDBAccess {
 	public static final String INSERTSQL = "insert into user_profile(gcm_regid, nick_name, email, password,f_name,l_name,user_type,created_at) "
 			+ "VALUES (?,?,?,?,?,?,?,DEFAULT)";
 	
-	public static final String UPDATESQL = "update user_profile set gcm_regid=?, nick_name=?, email=?, password=?, f_name=?, l_name=?,user_type=?? where uid=?";
+	public static final String UPDATESQL = "update user_profile set gcm_regid=?, nick_name=?, email=?, password=?, f_name=?, l_name=?,user_type=? where uid=?";
 
 	public UserProfile queryUserProfile(int id);
 
