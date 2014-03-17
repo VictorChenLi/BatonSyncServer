@@ -2,17 +2,21 @@ package com.baton.syncserver.ticketmanage.dbAccess;
 
 import java.util.List;
 
-import com.baton.syncserver.ticketmanage.model.Ticket;
+import com.baton.publiclib.model.ticketmanage.Ticket;
+
+//import com.baton.syncserver.ticketmanage.model.Ticket;
 
 public interface TicketManageDBAccess {
 	public static final String SELECTSQL = "select * from ticket ";
 
-	public static final String INSERTSQL = "insert into ticket(uid, ticketType, ticketContent, timeStamp) "
-			+ "VALUES (?,?,?,?)";
+	public static final String INSERTSQL = "insert into ticket(uid, ticketType, ticketContent, timeStamp,lid) "
+			+ "VALUES (?,?,?,?,?)";
 	
-	public static final String UPDATESQL = "update ticket set uid=?, ticketType=?, ticketContent=?, timeStamp=? where tid=?";
+	public static final String UPDATESQL = "update ticket set uid=?, ticketType=?, ticketContent=?, timeStamp=?,lid=? where tid=?";
 
 	public Ticket queryTicketById(int tid);
+	
+	public List<Ticket> queryTicketListByLesson(int lid);
 
 	public List<Ticket> queryTicketList();
 

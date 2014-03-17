@@ -4,7 +4,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import com.baton.syncserver.infrastructure.utility.JsonHelper;
+import com.baton.publiclib.utility.JsonHelper;
+
 
 /**
  * WebService基本异常

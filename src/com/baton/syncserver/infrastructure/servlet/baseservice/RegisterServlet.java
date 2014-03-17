@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baton.syncserver.infrastructure.servlet;
+package com.baton.syncserver.infrastructure.servlet.baseservice;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baton.publiclib.model.usermanage.UserProfile;
 import com.baton.syncserver.infrastructure.database.Datastore;
 import com.baton.syncserver.infrastructure.exception.ServiceException;
 import com.baton.syncserver.usermanage.service.UserManageServices;
@@ -37,29 +38,22 @@ import com.baton.syncserver.usermanage.service.UserManageServicesImpl;
 public class RegisterServlet extends BaseServlet {
 	
 	private UserManageServices userManageService=new UserManageServicesImpl();
-	
-  private static final String GCM_REGID = "gcm_regid";
-  private static final String NICK_NAME = "nick_name";
-  private static final String EMAIL = "email";
-  private static final String PASSWORD = "password";
-  private static final String FIRST_NAME = "f_name";
-  private static final String LAST_NAME = "l_name";
-  private static final String USER_TYPE = "user_type";
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException {
-    String gcm_regid = getParameter(req, GCM_REGID);
-    String nick_name = getParameter(req, NICK_NAME);
-    String email = getParameter(req, EMAIL);
-    String password = getParameter(req, PASSWORD);
-    String f_name = getParameter(req, FIRST_NAME);
-    String l_name = getParameter(req, LAST_NAME);
-    String user_type = getParameter(req,USER_TYPE);
+    String gcm_regid = getParameter(req, UserProfile.GCMID_WEB_STR);
+    String login_id = getParameter(req, UserProfile.LOGINID_WEB_STR);
+    String email = getParameter(req, UserProfile.EMAIL_WEB_STR);
+    String password = getParameter(req, UserProfile.PASSWORD_WEB_STR);
+    String f_name = getParameter(req, UserProfile.FNAME_WEB_STR);
+    String l_name = getParameter(req, UserProfile.LNAME_WEB_STR);
+    String user_type = getParameter(req,UserProfile.USERTYPE_WEB_STR);
 //    String user_type = "Student";
     try {
-		userManageService.UserRegister(gcm_regid, nick_name, email, password, f_name, l_name,user_type);
+		userManageService.UserRegister(gcm_regid, login_id, email, password, f_name, l_name,user_type);
 	} catch (ServiceException e) {
+		e.printStackTrace();
 		this.setException(resp, e);
 	} 
     setSuccess(resp);

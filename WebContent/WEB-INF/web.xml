@@ -22,14 +22,14 @@
 
   <listener>
     <listener-class>
-      com.baton.syncserver.infrastructure.servlet.ApiKeyInitializer
+      com.baton.syncserver.infrastructure.servlet.baseservice.ApiKeyInitializer
     </listener-class>
   </listener>
   
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>
-      com.baton.syncserver.infrastructure.servlet.RegisterServlet
+      com.baton.syncserver.infrastructure.servlet.baseservice.RegisterServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -42,7 +42,7 @@
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>
-      com.baton.syncserver.infrastructure.servlet.LoginServlet
+      com.baton.syncserver.infrastructure.servlet.baseservice.LoginServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -55,7 +55,7 @@
   <servlet>
     <servlet-name>SendAllMessagesServlet</servlet-name>
     <servlet-class>
-      com.baton.syncserver.infrastructure.servlet.SendAllMessagesServlet
+      com.baton.syncserver.infrastructure.servlet.baseservice.SendAllMessagesServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -68,7 +68,7 @@
   <servlet>
     <servlet-name>SendTicketServlet</servlet-name>
     <servlet-class>
-      com.baton.syncserver.infrastructure.servlet.SendTicketServlet
+      com.baton.syncserver.infrastructure.servlet.baseservice.SendTicketServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -79,9 +79,48 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>SwitchLessonServlet</servlet-name>
+    <servlet-class>
+      com.baton.syncserver.infrastructure.servlet.baseservice.SwitchLessonServlet
+    </servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SwitchLessonServlet</servlet-name>
+    <url-pattern>/switchLesson</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SyncTicketData</servlet-name>
+    <servlet-class>
+      com.baton.syncserver.infrastructure.servlet.baseservice.SyncTicketData
+    </servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SyncTicketData</servlet-name>
+    <url-pattern>/syncTicketData</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>UploadTicketData</servlet-name>
+    <servlet-class>
+      com.baton.syncserver.infrastructure.servlet.baseservice.UploadTicketData
+    </servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UploadTicketData</servlet-name>
+    <url-pattern>/uploadTicketData</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>HomeServlet</servlet-name>
     <servlet-class>
-      com.baton.syncserver.infrastructure.servlet.HomeServlet
+      com.baton.syncserver.infrastructure.servlet.baseservice.HomeServlet
     </servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>

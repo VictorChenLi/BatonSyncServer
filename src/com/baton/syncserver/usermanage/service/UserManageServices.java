@@ -1,5 +1,6 @@
 package com.baton.syncserver.usermanage.service;
 
+import com.baton.publiclib.model.classmanage.ClassLesson;
 import com.baton.syncserver.infrastructure.exception.ServiceException;
 
 public interface UserManageServices {
@@ -7,6 +8,6 @@ public interface UserManageServices {
 			String email, String password, String f_name, String l_name,
 			String user_type) throws ServiceException;
 
-	public boolean UserLogin(String gcm_regid, String email, String password)
+	public ClassLesson UserLogin(String gcm_regid, String email, String password, String class_name, String teacher_loginId)
 			throws ServiceException;
 }

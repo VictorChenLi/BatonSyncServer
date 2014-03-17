@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baton.syncserver.infrastructure.servlet;
+package com.baton.syncserver.infrastructure.servlet.baseservice;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -92,6 +92,18 @@ abstract class BaseServlet extends HttpServlet {
 		resp.setStatus(exception.getStatusCode());
 		resp.setContentType("text/plain");
 		String content = exception.toJson();
+		try {
+			resp.getWriter().println(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		resp.setContentLength(content.length());
+	}
+	
+	protected void setSuccess(HttpServletResponse resp, String content)
+	{
+		resp.setStatus(HttpServletResponse.SC_OK);
+		resp.setContentType("text/plain");
 		try {
 			resp.getWriter().println(content);
 		} catch (IOException e) {

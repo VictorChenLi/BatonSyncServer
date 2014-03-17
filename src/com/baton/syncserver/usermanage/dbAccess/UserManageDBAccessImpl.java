@@ -4,28 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.baton.publiclib.model.usermanage.UserProfile;
 import com.baton.syncserver.infrastructure.database.BaseDBAccess;
 import com.baton.syncserver.infrastructure.database.DTable;
-import com.baton.syncserver.usermanage.model.UserProfile;
+//import com.baton.syncserver.usermanage.model.UserProfile;
 
 public class UserManageDBAccessImpl implements UserManageDBAccess {
 	
 
 	@Override
 	public UserProfile queryUserProfile(int id) {
-		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{"uid"},new String[]{String.valueOf(id)});
+		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{UserProfile.UID_DB_STR},new String[]{String.valueOf(id)});
 		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
 	}
 
 	@Override
 	public UserProfile queryUserProfile(String email) {
-		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{"email"},new String[]{email});
+		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{UserProfile.EMAIL_DB_STR},new String[]{email});
 		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
 	}
 	
 	public UserProfile queryUserProfileByGCM(String gcm_regid)
 	{
-		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{"gcm_regid"},new String[]{gcm_regid});
+		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{UserProfile.GCMID_DB_STR},new String[]{gcm_regid});
 		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
 	}
 	
@@ -61,6 +62,12 @@ public class UserManageDBAccessImpl implements UserManageDBAccess {
 		List<String> varList = user.getUserData();
 		varList.add(String.valueOf(user.getUid()));
 		return BaseDBAccess.runSQL(UserManageDBAccess.UPDATESQL,varList);
+	}
+
+	@Override
+	public UserProfile queryUserProfileByLoginId(String login_id) {
+		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{UserProfile.LOGINID_DB_STR},new String[]{login_id});
+		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
 	}
 	
 }

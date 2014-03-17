@@ -13,14 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baton.syncserver.infrastructure.servlet;
+package com.baton.syncserver.infrastructure.servlet.baseservice;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baton.publiclib.model.classmanage.ClassLesson;
+import com.baton.publiclib.model.classmanage.VirtualClass;
+import com.baton.publiclib.model.usermanage.UserProfile;
+import com.baton.publiclib.utility.JsonHelper;
+//import com.baton.syncserver.classmanage.model.VirtualClass;
 import com.baton.syncserver.infrastructure.database.Datastore;
 import com.baton.syncserver.infrastructure.exception.ServiceException;
+//import com.baton.syncserver.usermanage.model.UserProfile;
 import com.baton.syncserver.usermanage.service.UserManageServices;
 import com.baton.syncserver.usermanage.service.UserManageServicesImpl;
 
@@ -37,9 +43,11 @@ public class LoginServlet extends BaseServlet {
 
 	private UserManageServices userManageService = new UserManageServicesImpl();
 
-	private static final String GCM_REGID = "gcm_regid";
-	private static final String EMAIL = "email";
-	private static final String PASSWORD = "password";
+	private static final String GCM_REGID = UserProfile.GCMID_WEB_STR;
+	private static final String EMAIL = UserProfile.EMAIL_WEB_STR;
+	private static final String PASSWORD = UserProfile.PASSWORD_WEB_STR;
+	private static final String CLASSROOM = VirtualClass.CLASSROOM_NAME_WEB_STR;
+	private static final String TEACHER_LOGINID = UserProfile.TEACHER_LOGINID_WEB_STR;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -47,12 +55,16 @@ public class LoginServlet extends BaseServlet {
 		String gcm_regid = getParameter(req, GCM_REGID);
 		String email = getParameter(req, EMAIL);
 		String password = getParameter(req, PASSWORD);
+		String classroom = getParameter(req, CLASSROOM);
+		String teacher_login_id = getParameter(req, TEACHER_LOGINID);
+		ClassLesson curLesson = null ;
 		try {
-			userManageService.UserLogin(gcm_regid, email, password);
+			curLesson = userManageService.UserLogin(gcm_regid, email, password, classroom, teacher_login_id);
 		} catch (ServiceException e) {
+			e.printStackTrace();
 			this.setException(resp, e);
 		}
-		setSuccess(resp);
+		setSuccess(resp,JsonHelper.serialize(curLesson));
 	}
 
 }

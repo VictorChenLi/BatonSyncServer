@@ -2,16 +2,18 @@ package com.baton.syncserver.usermanage.dbAccess;
 
 import java.util.List;
 
-import com.baton.syncserver.usermanage.model.UserProfile;
+import com.baton.publiclib.model.usermanage.UserProfile;
+
+//import com.baton.syncserver.usermanage.model.UserProfile;
 
 public interface UserManageDBAccess {
 
 	public static final String SELECTSQL = "select * from user_profile ";
 
-	public static final String INSERTSQL = "insert into user_profile(gcm_regid, nick_name, email, password,f_name,l_name,user_type,created_at) "
+	public static final String INSERTSQL = "insert into user_profile(gcm_regid, login_id, email, password,f_name,l_name,user_type,created_at) "
 			+ "VALUES (?,?,?,?,?,?,?,DEFAULT)";
 	
-	public static final String UPDATESQL = "update user_profile set gcm_regid=?, nick_name=?, email=?, password=?, f_name=?, l_name=?,user_type=? where uid=?";
+	public static final String UPDATESQL = "update user_profile set gcm_regid=?, login_id=?, email=?, password=?, f_name=?, l_name=?,user_type=? where uid=?";
 
 	public UserProfile queryUserProfile(int id);
 
@@ -24,4 +26,6 @@ public interface UserManageDBAccess {
 	public boolean updateUserProfile(UserProfile user);
 	
 	public UserProfile queryUserProfileByGCM(String gcm_regid);
+	
+	public UserProfile queryUserProfileByLoginId(String login_id);
 }

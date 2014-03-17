@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baton.syncserver.infrastructure.servlet;
+package com.baton.syncserver.infrastructure.servlet.baseservice;
 
+import com.baton.publiclib.model.usermanage.UserProfile;
 import com.baton.syncserver.infrastructure.database.Datastore;
 import com.baton.syncserver.usermanage.dbAccess.UserManageDBAccess;
 import com.baton.syncserver.usermanage.dbAccess.UserManageDBAccessImpl;
-import com.baton.syncserver.usermanage.model.UserProfile;
+//import com.baton.syncserver.usermanage.model.UserProfile;
 import com.google.android.gcm.server.Constants;
 import com.google.android.gcm.server.Message;
 import com.google.android.gcm.server.Message.Builder;

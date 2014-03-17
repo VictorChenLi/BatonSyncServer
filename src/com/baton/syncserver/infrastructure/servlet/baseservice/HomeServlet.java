@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baton.syncserver.infrastructure.servlet;
+package com.baton.syncserver.infrastructure.servlet.baseservice;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,9 +22,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baton.publiclib.model.usermanage.UserProfile;
 import com.baton.syncserver.usermanage.dbAccess.UserManageDBAccess;
 import com.baton.syncserver.usermanage.dbAccess.UserManageDBAccessImpl;
-import com.baton.syncserver.usermanage.model.UserProfile;
+//import com.baton.syncserver.usermanage.model.UserProfile;
 import com.baton.syncserver.infrastructure.database.Datastore;
 
 /**
