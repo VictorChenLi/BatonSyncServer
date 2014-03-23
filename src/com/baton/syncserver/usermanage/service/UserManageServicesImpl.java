@@ -32,8 +32,8 @@ public class UserManageServicesImpl implements UserManageServices {
 	}
 
 	@Override
-	public ClassLesson UserLogin(String gcm_regid, String email, String password,String classroom, String teacher_login_id) throws ServiceException {
-		UserProfile user = userManageDBImpl.queryUserProfile(email);
+	public ClassLesson UserLogin(String gcm_regid, String loginId, String password,String classroom, String teacher_login_id) throws ServiceException {
+		UserProfile user = userManageDBImpl.queryUserProfileByLoginId(loginId);
 		UserProfile teacher = userManageDBImpl.queryUserProfileByLoginId(teacher_login_id);
 		if(null == user)
 			throw new ServiceException(ErrorCode.Email_Not_Exist_Msg,ErrorCode.Email_Not_Exist_Msg);

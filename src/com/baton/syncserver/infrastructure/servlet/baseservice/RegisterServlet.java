@@ -15,6 +15,8 @@
  */
 package com.baton.syncserver.infrastructure.servlet.baseservice;
 
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +43,9 @@ public class RegisterServlet extends BaseServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException {
+      throws ServletException, IOException {
+	  logger.info("Receive the register request");
+	  super.doPost(req, resp);
     String gcm_regid = getParameter(req, UserProfile.GCMID_WEB_STR);
     String login_id = getParameter(req, UserProfile.LOGINID_WEB_STR);
     String email = getParameter(req, UserProfile.EMAIL_WEB_STR);

@@ -9,10 +9,10 @@ import com.baton.publiclib.model.ticketmanage.Ticket;
 public interface TicketManageDBAccess {
 	public static final String SELECTSQL = "select * from ticket ";
 
-	public static final String INSERTSQL = "insert into ticket(uid, ticketType, ticketContent, timeStamp,lid) "
-			+ "VALUES (?,?,?,?,?)";
+	public static final String INSERTSQL = "insert into ticket(uid, ticketType, ticketContent, timeStamp,lid, ticket_status) "
+			+ "VALUES (?,?,?,?,?,?)";
 	
-	public static final String UPDATESQL = "update ticket set uid=?, ticketType=?, ticketContent=?, timeStamp=?,lid=? where tid=?";
+	public static final String UPDATESQL = "update ticket set uid=?, ticketType=?, ticketContent=?, timeStamp=?,lid=? , ticket_status=? where tid=?";
 
 	public Ticket queryTicketById(int tid);
 	

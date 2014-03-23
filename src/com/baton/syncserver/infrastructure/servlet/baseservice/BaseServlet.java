@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baton.publiclib.utility.JsonHelper;
 import com.baton.syncserver.infrastructure.exception.ServiceException;
 
 /**
@@ -46,6 +47,19 @@ abstract class BaseServlet extends HttpServlet {
 			super.doGet(req, resp);
 		}
 	}
+	
+	
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		logger.info("Receive the request:");
+		logger.info(req.getRequestURI());
+		logger.info(JsonHelper.serialize(req.getParameterMap()));
+	}
+
+
 
 	protected String getParameter(HttpServletRequest req, String parameter)
 			throws ServletException {

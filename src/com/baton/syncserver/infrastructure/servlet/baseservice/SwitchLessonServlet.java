@@ -28,10 +28,11 @@ public class SwitchLessonServlet extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
+		logger.info("Receive the switch lesson request");
+		super.doPost(req, resp);
 		String classroom_name = getParameter(req, VirtualClass.CLASSROOM_NAME_WEB_STR);
-		String email = getParameter(req,UserProfile.EMAIL_WEB_STR);
-		UserProfile user = userManageDBImpl.queryUserProfile(email);
+		String loginId = getParameter(req,UserProfile.LOGINID_WEB_STR);
+		UserProfile user = userManageDBImpl.queryUserProfileByLoginId(loginId);
 		classManageImpl.switchClassLesson(classroom_name, user.getUid());
 		this.setSuccess(resp);
 	}

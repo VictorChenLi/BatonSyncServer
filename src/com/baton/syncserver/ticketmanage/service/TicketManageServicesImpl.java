@@ -27,9 +27,9 @@ public class TicketManageServicesImpl implements TicketManageServices {
 	private ClassManageDBAccess classManageDBImpl = new ClassManageDBAccessImpl();
 	
 	@Override
-	public Boolean SendTicket(ServletConfig config, String email, String gcm_regid, String ticketType,
+	public Boolean SendTicket(ServletConfig config, String loginId, String gcm_regid, String ticketType,
 			String ticketContent, String timeStamp, int lid) {
-		UserProfile user = userManageDBImpl.queryUserProfile(email);
+		UserProfile user = userManageDBImpl.queryUserProfileByLoginId(loginId);
 		// current solution is we don't need to store the ticket during the class
 //		Ticket ticket = new Ticket(user.getUid(),ticketType,ticketContent,timeStamp,lid,Ticket.TICKETSTATUS_RAISING);
 //		ticketManageDBImpl.insertTicket(ticket);

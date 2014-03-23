@@ -15,6 +15,8 @@
  */
 package com.baton.syncserver.infrastructure.servlet.baseservice;
 
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,23 +51,26 @@ public class LoginServlet extends BaseServlet {
 
 	private static final String GCM_REGID = UserProfile.GCMID_WEB_STR;
 	private static final String EMAIL = UserProfile.EMAIL_WEB_STR;
+	private static final String STUDENT_LOGINID = UserProfile.LOGINID_WEB_STR;
 	private static final String PASSWORD = UserProfile.PASSWORD_WEB_STR;
 	private static final String CLASSROOM = VirtualClass.CLASSROOM_NAME_WEB_STR;
 	private static final String TEACHER_LOGINID = UserProfile.TEACHER_LOGINID_WEB_STR;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException {
+			throws ServletException, IOException {
 		logger.info("Receive the login request");
+		super.doPost(req, resp);
 		String gcm_regid = getParameter(req, GCM_REGID);
-		String email = getParameter(req, EMAIL);
+//		String email = getParameter(req, EMAIL);
+		String student_login_id = getParameter(req, STUDENT_LOGINID);
 		String password = getParameter(req, PASSWORD);
 		String classroom = getParameter(req, CLASSROOM);
 		String teacher_login_id = getParameter(req, TEACHER_LOGINID);
 		
 		ClassLesson curLesson = null ;
 		try {
-			curLesson = userManageService.UserLogin(gcm_regid, email, password, classroom, teacher_login_id);
+			curLesson = userManageService.UserLogin(gcm_regid, student_login_id, password, classroom, teacher_login_id);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			this.setException(resp, e);

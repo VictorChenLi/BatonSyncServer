@@ -43,7 +43,9 @@ public class SyncTicketData extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
+		super.doPost(req, resp);
+		logger.info("Receive the sync ticket request");
+		super.doPost(req, resp);
 //		String classroom_name = getParameter(req, VirtualClass.CLASSROOM_NAME_WEB_STR);
 //		String email = getParameter(req,UserProfile.EMAIL_WEB_STR);
 //		UserProfile user = userManageDBImpl.queryUserProfile(email);

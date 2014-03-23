@@ -20,7 +20,8 @@ public class UploadTicketData extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
+		logger.info("Receive the upload ticket request");
+		super.doPost(req, resp);
 		String ticketListStr = getParameter(req,Ticket.TICKET_LIST_WEB_STR);
 		List<Ticket> ticketList = JsonHelper.deserializeList(ticketListStr,Ticket.class);
 		ticketManageImpl.StoreTicketList(ticketList);
