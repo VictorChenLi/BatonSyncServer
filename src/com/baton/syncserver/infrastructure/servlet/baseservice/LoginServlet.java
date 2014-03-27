@@ -23,13 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.baton.publiclib.infrastructure.exception.ServiceException;
 import com.baton.publiclib.model.classmanage.ClassLesson;
 import com.baton.publiclib.model.classmanage.VirtualClass;
 import com.baton.publiclib.model.usermanage.UserProfile;
 import com.baton.publiclib.utility.JsonHelper;
 //import com.baton.syncserver.classmanage.model.VirtualClass;
 import com.baton.syncserver.infrastructure.database.Datastore;
-import com.baton.syncserver.infrastructure.exception.ServiceException;
 //import com.baton.syncserver.usermanage.model.UserProfile;
 import com.baton.syncserver.usermanage.service.UserManageServices;
 import com.baton.syncserver.usermanage.service.UserManageServicesImpl;

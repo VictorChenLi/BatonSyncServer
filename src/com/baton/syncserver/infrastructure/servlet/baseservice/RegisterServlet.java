@@ -21,9 +21,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baton.publiclib.infrastructure.exception.ServiceException;
 import com.baton.publiclib.model.usermanage.UserProfile;
 import com.baton.syncserver.infrastructure.database.Datastore;
-import com.baton.syncserver.infrastructure.exception.ServiceException;
 import com.baton.syncserver.usermanage.service.UserManageServices;
 import com.baton.syncserver.usermanage.service.UserManageServicesImpl;
 

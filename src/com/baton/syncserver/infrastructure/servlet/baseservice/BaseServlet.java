@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baton.publiclib.infrastructure.exception.ServiceException;
 import com.baton.publiclib.utility.JsonHelper;
-import com.baton.syncserver.infrastructure.exception.ServiceException;
 
 /**
  * Skeleton class for all servlets in this package.

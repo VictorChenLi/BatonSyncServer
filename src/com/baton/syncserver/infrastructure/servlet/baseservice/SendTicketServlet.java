@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+import com.baton.publiclib.infrastructure.exception.ServiceException;
 import com.baton.publiclib.model.classmanage.ClassLesson;
 import com.baton.publiclib.model.ticketmanage.Ticket;
 import com.baton.publiclib.model.usermanage.UserProfile;
@@ -36,7 +38,12 @@ public class SendTicketServlet extends BaseServlet {
 		String timeStamp = getParameter(req, Ticket.TIMESTAMP_WEB_STR);
 		int LessonId = Integer.valueOf(getParameter(req,ClassLesson.LESSONID_WEB_STR));
 		
-		ticketManageService.SendTicket(getServletConfig(), loginId, gcm_regid, ticketType, ticketContent, timeStamp,LessonId);
+		try {
+			ticketManageService.SendTicket(getServletConfig(), loginId, gcm_regid, ticketType, ticketContent, timeStamp,LessonId);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			this.setException(resp, e);
+		}
 		setSuccess(resp);
 	}
 }

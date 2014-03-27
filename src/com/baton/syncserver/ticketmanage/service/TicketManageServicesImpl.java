@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.ServletConfig;
 
+import com.baton.publiclib.infrastructure.exception.ErrorCode;
+import com.baton.publiclib.infrastructure.exception.ServiceException;
 import com.baton.publiclib.model.classmanage.ClassLesson;
 import com.baton.publiclib.model.classmanage.VirtualClass;
 import com.baton.publiclib.model.ticketmanage.Ticket;
@@ -28,7 +30,7 @@ public class TicketManageServicesImpl implements TicketManageServices {
 	
 	@Override
 	public Boolean SendTicket(ServletConfig config, String loginId, String gcm_regid, String ticketType,
-			String ticketContent, String timeStamp, int lid) {
+			String ticketContent, String timeStamp, int lid) throws ServiceException {
 		UserProfile user = userManageDBImpl.queryUserProfileByLoginId(loginId);
 		// current solution is we don't need to store the ticket during the class
 //		Ticket ticket = new Ticket(user.getUid(),ticketType,ticketContent,timeStamp,lid,Ticket.TICKETSTATUS_RAISING);
@@ -37,10 +39,15 @@ public class TicketManageServicesImpl implements TicketManageServices {
 		List<String> devices = new ArrayList<String>();
 		// TODO for the spiral two, we don't have classroom, so we send msg to all teacher tablet
 		ClassLesson lesson = classManageDBImpl.queryLessonByLid(lid);
+		if(null==lesson)
+			throw new ServiceException(ErrorCode.Class_Not_Exist_Msg,ErrorCode.Class_Not_Exist);
+		
 		VirtualClass vClass = classManageDBImpl.queryVirtualClass(lesson.getCid());
 		UserProfile teacher = userManageDBImpl.queryUserProfile(vClass.getTeacher_id());
 		if(null!=teacher)
 			devices.add(teacher.getGcm_regid());
+		else
+			throw new ServiceException(ErrorCode.Teacher_Not_Exist_Msg,ErrorCode.Teacher_Not_Exist);
 		
 		Map<String,String> contentMap = new HashMap<String,String>();
 		contentMap.put(Ticket.UID_WEB_STR, String.valueOf(user.getUid()));
