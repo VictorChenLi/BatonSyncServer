@@ -3,7 +3,7 @@ package com.baton.syncserver.usermanage.service;
 import com.baton.publiclib.infrastructure.exception.ErrorCode;
 import com.baton.publiclib.infrastructure.exception.ServiceException;
 import com.baton.publiclib.model.classmanage.ClassLesson;
-import com.baton.publiclib.model.classmanage.VirtualClass;
+import com.baton.publiclib.model.usermanage.LoginSession;
 import com.baton.publiclib.model.usermanage.UserProfile;
 import com.baton.syncserver.classmanage.dbAccess.ClassManageDBAccess;
 import com.baton.syncserver.classmanage.dbAccess.ClassManageDBAccessImpl;
@@ -37,12 +37,15 @@ public class UserManageServicesImpl implements UserManageServices {
 	public ClassLesson UserLogin(String gcm_regid, String loginId, String password,String classroom, String teacher_login_id) throws ServiceException {
 		UserProfile user = userManageDBImpl.queryUserProfileByLoginId(loginId);
 		UserProfile teacher = userManageDBImpl.queryUserProfileByLoginId(teacher_login_id);
+		
+		//field check
 		if(null==teacher)
 			throw new ServiceException(ErrorCode.Teacher_Not_Exist_Msg,ErrorCode.Teacher_Not_Exist);
 		if(null == user)
 			throw new ServiceException(ErrorCode.LoginId_Not_Exist_Msg,ErrorCode.LoginId_Not_Exist);
 		if(!user.getPassword().equals(password))
 			throw new ServiceException(ErrorCode.Password_Error_Msg,ErrorCode.Password_Error);
+		
 		ClassLesson lesson=null;
 		
 		if(UserProfile.USERTYPE_STUDENT.equals(user.getUser_type()))
@@ -68,6 +71,25 @@ public class UserManageServicesImpl implements UserManageServices {
 			user.setGcm_regid(gcm_regid);
 			userManageDBImpl.updateUserProfile(user);
 		}
+		
+		//update login_session table
+		
+		LoginSession ls = userManageDBImpl.queryLoginSession(user.getUid(), lesson.getLid(), gcm_regid);
+		if(null == ls){
+			System.out.println("no exist login session");
+			//inactive other sessions under the same uid and lid
+			userManageDBImpl.inactiveLoginSession(user.getUid(),lesson.getLid());
+			//insert this new one
+			LoginSession newLs = new LoginSession(lesson.getLid(),user.getUid(),user.getUser_type(),user.getLogin_id(),null,LoginSession.LOGIN_STATUS_ACTIVE,gcm_regid);
+			userManageDBImpl.insertLoginSession(newLs);
+		}else{
+			System.out.println("exist login session with this gcm_id");
+			//inactive other sessions under the same uid and lid
+			userManageDBImpl.inactiveLoginSession(user.getUid(),lesson.getLid(),gcm_regid);
+			//active this sessions
+			userManageDBImpl.activeLoginSession(ls);
+		}
+		
 		return lesson;
 	}
 
