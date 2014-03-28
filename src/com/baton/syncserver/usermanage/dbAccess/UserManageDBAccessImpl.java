@@ -13,27 +13,27 @@ public class UserManageDBAccessImpl implements UserManageDBAccess {
 	
 
 	@Override
-	public UserProfile queryUserProfile(int id) {
+	public UserProfile queryUserProfileByUId(int id) {
 		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{UserProfile.UID_DB_STR},new String[]{String.valueOf(id)});
-		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
+		return queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,strSqlWhere).get(0):null;
 	}
 
 	@Override
-	public UserProfile queryUserProfile(String email) {
+	public UserProfile queryUserProfileByEmail(String email) {
 		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{UserProfile.EMAIL_DB_STR},new String[]{email});
-		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
+		return queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,strSqlWhere).get(0):null;
 	}
 	
 	public UserProfile queryUserProfileByGCM(String gcm_regid)
 	{
 		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{UserProfile.GCMID_DB_STR},new String[]{gcm_regid});
-		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
+		return queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,strSqlWhere).get(0):null;
 	}
 	
 	@Override
 	public List<UserProfile> queryUserProfileList()
 	{
-		return queryUserProfileList(UserManageDBAccess.SELECTSQL,"");
+		return queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,"");
 	}
 	
 	private List<UserProfile> queryUserProfileList(String strSql, String strWhere)
@@ -54,20 +54,20 @@ public class UserManageDBAccessImpl implements UserManageDBAccess {
 
 	@Override
 	public boolean insertUserProfile(UserProfile user) {
-		return BaseDBAccess.runSQL(UserManageDBAccess.INSERTSQL, user.getUserData());
+		return BaseDBAccess.runSQL(UserManageDBAccess.INSERT_USER_PROFILE, user.getUserData());
 	}
 
 	@Override
 	public boolean updateUserProfile(UserProfile user) {
 		List<String> varList = user.getUserData();
 		varList.add(String.valueOf(user.getUid()));
-		return BaseDBAccess.runSQL(UserManageDBAccess.UPDATESQL,varList);
+		return BaseDBAccess.runSQL(UserManageDBAccess.UPDATE_USER_PROFILE_BY_UID,varList);
 	}
 
 	@Override
 	public UserProfile queryUserProfileByLoginId(String login_id) {
 		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{UserProfile.LOGINID_DB_STR},new String[]{login_id});
-		return queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECTSQL,strSqlWhere).get(0):null;
+		return queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,strSqlWhere)!=null?queryUserProfileList(UserManageDBAccess.SELECT_USER_PROFILE,strSqlWhere).get(0):null;
 	}
 	
 }

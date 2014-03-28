@@ -43,7 +43,7 @@ public class TicketManageServicesImpl implements TicketManageServices {
 			throw new ServiceException(ErrorCode.Class_Not_Exist_Msg,ErrorCode.Class_Not_Exist);
 		
 		VirtualClass vClass = classManageDBImpl.queryVirtualClass(lesson.getCid());
-		UserProfile teacher = userManageDBImpl.queryUserProfile(vClass.getTeacher_id());
+		UserProfile teacher = userManageDBImpl.queryUserProfileByUId(vClass.getTeacher_id());
 		if(null!=teacher)
 			devices.add(teacher.getGcm_regid());
 		else

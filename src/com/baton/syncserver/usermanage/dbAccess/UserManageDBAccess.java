@@ -8,16 +8,16 @@ import com.baton.publiclib.model.usermanage.UserProfile;
 
 public interface UserManageDBAccess {
 
-	public static final String SELECTSQL = "select * from user_profile ";
+	public static final String SELECT_USER_PROFILE = "select * from user_profile ";
 
-	public static final String INSERTSQL = "insert into user_profile(gcm_regid, login_id, email, password,f_name,l_name,user_type,created_at) "
+	public static final String INSERT_USER_PROFILE = "insert into user_profile(gcm_regid, login_id, email, password,f_name,l_name,user_type,created_at) "
 			+ "VALUES (?,?,?,?,?,?,?,DEFAULT)";
 	
-	public static final String UPDATESQL = "update user_profile set gcm_regid=?, login_id=?, email=?, password=?, f_name=?, l_name=?,user_type=? where uid=?";
+	public static final String UPDATE_USER_PROFILE_BY_UID = "update user_profile set gcm_regid=?, login_id=?, email=?, password=?, f_name=?, l_name=?,user_type=? where uid=?";
 
-	public UserProfile queryUserProfile(int id);
+	public UserProfile queryUserProfileByUId(int id);
 
-	public UserProfile queryUserProfile(String email);
+	public UserProfile queryUserProfileByEmail(String email);
 
 	public List<UserProfile> queryUserProfileList();
 
@@ -25,6 +25,9 @@ public interface UserManageDBAccess {
 	
 	public boolean updateUserProfile(UserProfile user);
 	
+	/**
+	 * @deprecated
+	 */
 	public UserProfile queryUserProfileByGCM(String gcm_regid);
 	
 	public UserProfile queryUserProfileByLoginId(String login_id);
