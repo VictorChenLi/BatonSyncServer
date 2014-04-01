@@ -61,5 +61,7 @@ public interface UserManageDBAccess {
 
 	public boolean inactiveLoginSession(int uid, int lid, String gcm_regid);
 
+	public List<LoginSession> queryActiveLoginSession(int lid, String userType);
+
 	/*end for Login Session Management*/
 }

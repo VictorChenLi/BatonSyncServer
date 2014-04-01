@@ -149,6 +149,28 @@ public class BaseDBAccess
         }
         return sb.toString();
     }
+    
+    public static String getSqlInString(String field, String[] values)
+    {
+    	StringBuffer sb = new StringBuffer();
+    	if(values==null || values.length < 1)
+    		return "";
+        sb.append(field+" in(");
+        for(int i=0; i< values.length; i++)
+        {
+        	sb.append("'");
+        	sb.append(values[i]);
+        	sb.append("'");
+        	if (i < values.length - 1)
+            {
+                sb.append(",");
+            }
+        }
+        sb.append(")");
+        return sb.toString();
+    }
+    
+  
 
     /**
      * run one sql statement without parameter

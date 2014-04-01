@@ -76,6 +76,13 @@ public class UserManageDBAccessImpl implements UserManageDBAccess {
 		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{LoginSession.UID_DB_STR,LoginSession.LID_DB_STR,LoginSession.GCMREGID_DB_STR},new String[]{String.valueOf(uid),String.valueOf(lid),gcm_regid});
 		return queryLoginSessionList(UserManageDBAccess.SELECT_LOGIN_SESSION,strSqlWhere)!=null?queryLoginSessionList(UserManageDBAccess.SELECT_LOGIN_SESSION,strSqlWhere).get(0):null;
 	}
+	
+	@Override
+	public List<LoginSession> queryActiveLoginSession(int lid, String userType) {
+		String strSqlWhere = BaseDBAccess.getSqlAndWhereString(new String[]{LoginSession.LID_DB_STR,LoginSession.USERTYPE_DB_STR,LoginSession.SESSIONSTATUS_DB_STR},new String[]{String.valueOf(lid),userType,LoginSession.LOGIN_STATUS_ACTIVE});
+		return queryLoginSessionList(UserManageDBAccess.SELECT_LOGIN_SESSION,strSqlWhere);
+	}
+	
 	private List<LoginSession> queryLoginSessionList(String strSql, String strWhere)
 	{
 		List<LoginSession> sessionList = new ArrayList<LoginSession>();

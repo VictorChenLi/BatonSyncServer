@@ -15,5 +15,5 @@ public interface TicketManageServices {
 	public List<Ticket> QueryTicketData(int lid);
 	
 	public void StoreTicketList(List<Ticket> ticketList);
-	
+
 }

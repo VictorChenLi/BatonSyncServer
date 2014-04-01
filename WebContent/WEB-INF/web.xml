@@ -105,6 +105,19 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>GetLessonBuddies</servlet-name>
+    <servlet-class>
+      com.baton.syncserver.infrastructure.servlet.baseservice.GetLessonBuddies
+    </servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>GetLessonBuddies</servlet-name>
+    <url-pattern>/getLessonBuddies</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>UploadTicketData</servlet-name>
     <servlet-class>
       com.baton.syncserver.infrastructure.servlet.baseservice.UploadTicketData
