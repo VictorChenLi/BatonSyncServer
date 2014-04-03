@@ -90,9 +90,21 @@ public class ClassManageDBAccessImpl implements ClassManageDBAccess {
 			{
 				displayTicket.setParticipate_intent(ticket.getTicketContent());
 				displayTicket.setStartTimeStamp(ticket.getTimeStamp());
+				displayTicket.setTicket_status(Ticket.TICKETSTATUS_RAISING);
 			}
-			if(ticket.getTicket_status().equals(Ticket.TICKETSTATUS_RESPOND))
+			if(ticket.getTicket_status().equals(Ticket.TICKETSTATUS_RESPOND)
+					&&null!=displayTicket.getTicket_status()
+					&&!displayTicket.getTicket_status().equals(Ticket.TICKETSTATUS_RAISING))
+			{
 				displayTicket.setResponse_times(displayTicket.getResponse_times()+1);
+				displayTicket.setTicket_status(Ticket.TICKETSTATUS_RESPOND);
+			}
+			if(ticket.getTicket_status().equals(Ticket.TICKETSTATUS_DISCARD)
+					&&null!=displayTicket.getTicket_status()
+					&& !displayTicket.getTicket_status().equals(Ticket.TICKETSTATUS_RAISING))
+			{
+				displayTicket.setTicket_status(Ticket.TICKETSTATUS_DISCARD);
+			}
 			displayTicket.setParticipate_times(displayTicket.getParticipate_times()+1);
 			tMap.put(ticket.getUid(), displayTicket);
 		}

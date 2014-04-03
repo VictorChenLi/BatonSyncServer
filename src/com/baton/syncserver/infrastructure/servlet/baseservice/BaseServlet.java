@@ -99,6 +99,7 @@ abstract class BaseServlet extends HttpServlet {
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.setContentType("text/plain");
 		resp.setContentLength(size);
+		logger.info("Response status code: "+String.valueOf(resp.getStatus()));
 	}
 
 	protected void setException(HttpServletResponse resp,
@@ -112,6 +113,8 @@ abstract class BaseServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		resp.setContentLength(content.length());
+		logger.info("Response status code: "+String.valueOf(resp.getStatus()));
+		logger.info("Response content: "+ content);
 	}
 	
 	protected void setSuccess(HttpServletResponse resp, String content)
@@ -124,6 +127,8 @@ abstract class BaseServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		resp.setContentLength(content.length());
+		logger.info("Response status code: "+String.valueOf(resp.getStatus()));
+		logger.info("Response content: "+ content);
 	}
 
 	protected boolean isEmptyOrNull(String value) {
