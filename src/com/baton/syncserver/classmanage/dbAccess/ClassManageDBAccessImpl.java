@@ -83,7 +83,7 @@ public class ClassManageDBAccessImpl implements ClassManageDBAccess {
 			}
 			else
 			{
-				UserProfile user = userDBImpl.queryUserProfile(ticket.getUid());
+				UserProfile user = userDBImpl.queryUserProfileByUId(ticket.getUid());
 				displayTicket = new TalkTicketForDisplay(user.getLogin_id(),user.getUid(),lid);
 			}
 			if(ticket.getTicket_status().equals(Ticket.TICKETSTATUS_RAISING))

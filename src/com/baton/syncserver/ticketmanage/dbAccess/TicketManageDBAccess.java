@@ -23,4 +23,8 @@ public interface TicketManageDBAccess {
 	public boolean insertTicket(Ticket ticket);
 	
 	public boolean updateTicket(Ticket ticket);
+
+	public List<Ticket> queryTicket(int lid, int uid, String[] ticket_status);
+
+	public List<Ticket> queryTicket(int lid, String[] ticket_status);
 }
