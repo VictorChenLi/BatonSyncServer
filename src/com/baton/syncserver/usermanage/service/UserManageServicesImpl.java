@@ -9,6 +9,8 @@ import com.baton.syncserver.classmanage.dbAccess.ClassManageDBAccess;
 import com.baton.syncserver.classmanage.dbAccess.ClassManageDBAccessImpl;
 import com.baton.syncserver.classmanage.service.ClassManageServices;
 import com.baton.syncserver.classmanage.service.ClassManageServicesImpl;
+import com.baton.syncserver.ticketmanage.service.TicketManageServices;
+import com.baton.syncserver.ticketmanage.service.TicketManageServicesImpl;
 import com.baton.syncserver.usermanage.dbAccess.UserManageDBAccess;
 import com.baton.syncserver.usermanage.dbAccess.UserManageDBAccessImpl;
 //import com.baton.syncserver.usermanage.model.UserProfile;
@@ -18,6 +20,7 @@ public class UserManageServicesImpl implements UserManageServices {
 	private UserManageDBAccess userManageDBImpl = new UserManageDBAccessImpl();
 	private ClassManageDBAccess classManageDBImpl = new ClassManageDBAccessImpl();
 	private ClassManageServices classManageServiceImpl = new ClassManageServicesImpl();
+	private TicketManageServices ticketManageServiceImpl = new TicketManageServicesImpl();
 	
 	@Override
 	public boolean UserRegister(String gcm_regid, String nick_name,
@@ -82,6 +85,8 @@ public class UserManageServicesImpl implements UserManageServices {
 			//insert this new one
 			LoginSession newLs = new LoginSession(lesson.getLid(),user.getUid(),user.getUser_type(),user.getLogin_id(),null,LoginSession.LOGIN_STATUS_ACTIVE,gcm_regid);
 			userManageDBImpl.insertLoginSession(newLs);
+			// send the class participation to all the student's device
+			ticketManageServiceImpl.notifyAllClassParticipation(lesson.getLid());
 		}else{
 			System.out.println("exist login session with this gcm_id");
 			//inactive other sessions under the same uid and lid

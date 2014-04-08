@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.ServletConfig;
 
 import com.baton.publiclib.infrastructure.exception.ServiceException;
+import com.baton.publiclib.model.classmanage.ClassParticipate;
 import com.baton.publiclib.model.ticketmanage.Ticket;
 
 public interface TicketManageServices {
@@ -15,5 +16,8 @@ public interface TicketManageServices {
 	public List<Ticket> QueryTicketData(int lid);
 	
 	public void StoreTicketList(List<Ticket> ticketList);
+	
+	public List<ClassParticipate> QueryClassBuddiesList(int lid);
 
+	public void notifyAllClassParticipation(int lid);
 }

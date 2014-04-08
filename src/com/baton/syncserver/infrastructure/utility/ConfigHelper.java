@@ -46,7 +46,7 @@ public class ConfigHelper {
     private static String getHomeDir()
     {
         String value = System.getenv("Baton_HOME");
-        return value == null ? "C:/Users/foxwe_000/git/BatonSyncServer" : value;
+        return value == null ? "J:/FreeTimeProject/Visible classroom/coding project/BatonSyncServer" : value;
     }
     
     /**
