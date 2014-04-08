@@ -45,11 +45,9 @@ public class TicketManageServicesImpl implements TicketManageServices {
 		/**20140330 modified by fiona save or update ticket in database*/
 		List<Ticket> currentRaisingTicketList = ticketManageDBImpl.queryTicket(lid, student.getUid(), new String[]{Ticket.TICKETSTATUS_RAISING});
 		Ticket curTicket = null;
+		String serverTime = TimeHelper.getStrTimeFromMillis(System.currentTimeMillis());
 		if(currentRaisingTicketList==null || currentRaisingTicketList.size()==0){
 			/**modified by fiona 2014/4/8 - time stamp the ticket with the server time*/
-			String serverTime = TimeHelper.getStrTimeFromMillis(System.currentTimeMillis());
-			System.out.println("client send time:" + timeStamp);
-			System.out.println("server send time:" + serverTime);
 			//no raising ticket under this student in this lesson, insert this ticket
 			curTicket = new Ticket(student.getUid(),ticketType,ticketContent,serverTime,lid,Ticket.TICKETSTATUS_RAISING);
 			ticketManageDBImpl.insertTicket(curTicket);
@@ -79,7 +77,7 @@ public class TicketManageServicesImpl implements TicketManageServices {
 		contentMapForTeacher.put(UserProfile.LOGINID_WEB_STR, student.getLogin_id());
 		contentMapForTeacher.put(Ticket.TICKETTYPE_WEB_STR, ticketType);
 		contentMapForTeacher.put(Ticket.TICKETCONTENT_WEB_STR, ticketContent);
-		contentMapForTeacher.put(Ticket.TIMESTAMP_WEB_STR, timeStamp);
+		contentMapForTeacher.put(Ticket.TIMESTAMP_WEB_STR, serverTime);
 		gcmHelper.asyncSend(teacherDevice, contentMapForTeacher);
 		
 		
