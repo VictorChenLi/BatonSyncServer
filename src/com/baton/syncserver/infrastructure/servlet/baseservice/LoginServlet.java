@@ -70,7 +70,7 @@ public class LoginServlet extends BaseServlet {
 		
 		ClassLesson curLesson = null ;
 		try {
-			curLesson = userManageService.UserLogin(gcm_regid, student_login_id, password, classroom, teacher_login_id);
+			curLesson = userManageService.UserLogin(getServletConfig(),gcm_regid, student_login_id, password, classroom, teacher_login_id);
 			//TODO: curLesson could be null after this, what happens if this is the case?
 		} catch (ServiceException e) {
 			e.printStackTrace();

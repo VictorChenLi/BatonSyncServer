@@ -19,5 +19,5 @@ public interface TicketManageServices {
 	
 	public List<ClassParticipate> QueryClassBuddiesList(int lid);
 
-	public void notifyAllClassParticipation(int lid);
+	public void notifyAllClassParticipation(int lid, ServletConfig config);
 }

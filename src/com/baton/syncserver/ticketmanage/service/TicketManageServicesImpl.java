@@ -2,7 +2,6 @@ package com.baton.syncserver.ticketmanage.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -18,6 +17,7 @@ import com.baton.publiclib.model.ticketmanage.Ticket;
 import com.baton.publiclib.model.usermanage.LoginSession;
 import com.baton.publiclib.model.usermanage.UserProfile;
 import com.baton.publiclib.utility.JsonHelper;
+import com.baton.publiclib.utility.TimeHelper;
 import com.baton.syncserver.classmanage.dbAccess.ClassManageDBAccess;
 import com.baton.syncserver.classmanage.dbAccess.ClassManageDBAccessImpl;
 import com.baton.syncserver.infrastructure.utility.GCMHelper;
@@ -46,8 +46,12 @@ public class TicketManageServicesImpl implements TicketManageServices {
 		List<Ticket> currentRaisingTicketList = ticketManageDBImpl.queryTicket(lid, student.getUid(), new String[]{Ticket.TICKETSTATUS_RAISING});
 		Ticket curTicket = null;
 		if(currentRaisingTicketList==null || currentRaisingTicketList.size()==0){
+			/**modified by fiona 2014/4/8 - time stamp the ticket with the server time*/
+			String serverTime = TimeHelper.getStrTimeFromMillis(System.currentTimeMillis());
+			System.out.println("client send time:" + timeStamp);
+			System.out.println("server send time:" + serverTime);
 			//no raising ticket under this student in this lesson, insert this ticket
-			curTicket = new Ticket(student.getUid(),ticketType,ticketContent,timeStamp,lid,Ticket.TICKETSTATUS_RAISING);
+			curTicket = new Ticket(student.getUid(),ticketType,ticketContent,serverTime,lid,Ticket.TICKETSTATUS_RAISING);
 			ticketManageDBImpl.insertTicket(curTicket);
 		}else{
 			//get this ticket and update it
@@ -59,6 +63,7 @@ public class TicketManageServicesImpl implements TicketManageServices {
 		
 		/**send the ticket to teacher device*/
 		gcmHelper = new GCMHelper(config);
+		
 		List<String> teacherDevice = new ArrayList<String>();
 		ClassLesson lesson = classManageDBImpl.queryLessonByLid(lid);
 		if(null==lesson)
@@ -109,7 +114,7 @@ public class TicketManageServicesImpl implements TicketManageServices {
 		/**end modification*/
 		
 		// unify the data structure, just send the ClassParticipate list to the students
-		this.notifyAllClassParticipation(lid);
+		this.notifyAllClassParticipation(lid,config);
 		return true;
 	}
 
@@ -135,6 +140,8 @@ public class TicketManageServicesImpl implements TicketManageServices {
 			int uid = ls.getUid();
 			UserProfile student = userManageDBImpl.queryUserProfileByUId(uid);
 			List<Ticket> tickets = ticketManageDBImpl.queryTicket(lid,uid,new String[]{Ticket.TICKETSTATUS_RAISING,Ticket.TICKETSTATUS_RESPOND});
+			if(tickets==null)
+				tickets = new ArrayList<Ticket>();
 			ClassParticipate cp = new ClassParticipate(lid,student,tickets);
 			response.add(cp);
 		}
@@ -142,7 +149,7 @@ public class TicketManageServicesImpl implements TicketManageServices {
 	}
 	
 	@Override
-	public void notifyAllClassParticipation(int lid)
+	public void notifyAllClassParticipation(int lid, ServletConfig config)
 	{
 		Map<String,String> contentMapForStudent = new HashMap<String,String>();
 		List<LoginSession> lsList = userManageDBImpl.queryActiveLoginSession(lid, UserProfile.USERTYPE_STUDENT);
@@ -156,6 +163,8 @@ public class TicketManageServicesImpl implements TicketManageServices {
 			if(null!=currentClassBuddies&&currentClassBuddies.size()!=0)
 			{
 				contentMapForStudent.put(Ticket.TICKET_LIST_WEB_STR, JsonHelper.serialize(currentClassBuddies));
+				if(gcmHelper==null)
+					gcmHelper = new GCMHelper(config);
 				gcmHelper.asyncSend(studentDevices, contentMapForStudent);
 			}
 		}

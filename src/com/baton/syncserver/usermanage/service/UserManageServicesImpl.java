@@ -1,5 +1,7 @@
 package com.baton.syncserver.usermanage.service;
 
+import javax.servlet.ServletConfig;
+
 import com.baton.publiclib.infrastructure.exception.ErrorCode;
 import com.baton.publiclib.infrastructure.exception.ServiceException;
 import com.baton.publiclib.model.classmanage.ClassLesson;
@@ -37,7 +39,7 @@ public class UserManageServicesImpl implements UserManageServices {
 	}
 
 	@Override
-	public ClassLesson UserLogin(String gcm_regid, String loginId, String password,String classroom, String teacher_login_id) throws ServiceException {
+	public ClassLesson UserLogin(ServletConfig config, String gcm_regid, String loginId, String password,String classroom, String teacher_login_id) throws ServiceException {
 		UserProfile user = userManageDBImpl.queryUserProfileByLoginId(loginId);
 		UserProfile teacher = userManageDBImpl.queryUserProfileByLoginId(teacher_login_id);
 		
@@ -93,7 +95,7 @@ public class UserManageServicesImpl implements UserManageServices {
 			userManageDBImpl.activeLoginSession(ls);
 		}
 		// send the class participation to all the student's device
-		ticketManageServiceImpl.notifyAllClassParticipation(lesson.getLid());
+		ticketManageServiceImpl.notifyAllClassParticipation(lesson.getLid(),config);
 		return lesson;
 	}
 
