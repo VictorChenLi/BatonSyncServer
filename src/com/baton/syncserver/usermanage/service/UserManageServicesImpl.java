@@ -85,8 +85,6 @@ public class UserManageServicesImpl implements UserManageServices {
 			//insert this new one
 			LoginSession newLs = new LoginSession(lesson.getLid(),user.getUid(),user.getUser_type(),user.getLogin_id(),null,LoginSession.LOGIN_STATUS_ACTIVE,gcm_regid);
 			userManageDBImpl.insertLoginSession(newLs);
-			// send the class participation to all the student's device
-			ticketManageServiceImpl.notifyAllClassParticipation(lesson.getLid());
 		}else{
 			System.out.println("exist login session with this gcm_id");
 			//inactive other sessions under the same uid and lid
@@ -94,7 +92,8 @@ public class UserManageServicesImpl implements UserManageServices {
 			//active this sessions
 			userManageDBImpl.activeLoginSession(ls);
 		}
-		
+		// send the class participation to all the student's device
+		ticketManageServiceImpl.notifyAllClassParticipation(lesson.getLid());
 		return lesson;
 	}
 
